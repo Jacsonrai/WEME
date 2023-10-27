@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRef } from "react";
 import { HookForm, FormsProvider } from "@/components/form/FormProvider";
 
@@ -5,11 +6,14 @@ import { loginPayload } from "@/utils/type/payload";
 import { LoginRequest } from "@/utils/api/methods/login";
 import PasswordInputField from "@/components/form/PasswordInputField";
 import InputField from "@/components/form/InputField";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const handleLoginRequest = (value: loginPayload) => {
-    LoginRequest(value).then((res) => {
-      console.log(res);
+    LoginRequest(value).then((res: any) => {
+      dispatch({ type: "LOGIN" });
+      dispatch({ type: "SET_TOKEN", payload: res?.data.token });
     });
   };
   const defaultValues: loginPayload = {
