@@ -10,4 +10,6 @@ module.exports = {
   port: process.env.PORT,
   mongodb_user: process.env.MONGODB_USERNAME,
   mongodb_password: process.env.MONGODB_PASSWORD,
+  client_id: process.env.CLIENT_ID,
+  client_secret: process.env.CLIENT_SECRET,
 };
