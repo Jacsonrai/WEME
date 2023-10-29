@@ -21,6 +21,9 @@ const Login = () => {
     password: "",
   };
   const playerRef = useRef();
+  const handleGoogleLogin = () => {
+    window.location.href = "http://localhost:8080/auth/google";
+  };
   return (
     <div className="grid grid-cols-2">
       <div className="mt-4">
@@ -77,7 +80,10 @@ const Login = () => {
           <div className="p-2 text-lg font-medium text-white bg-blue-500 rounded-md cursor-pointer hover:bg-blue-700">
             <p>Facebook</p>
           </div>
-          <div className="p-2 text-lg font-medium text-white bg-red-500 rounded-md cursor-pointer hover:bg-red-700 ">
+          <div
+            onClick={handleGoogleLogin}
+            className="p-2 text-lg font-medium text-white bg-red-500 rounded-md cursor-pointer hover:bg-red-700 "
+          >
             <p>Google</p>
           </div>
         </div>
