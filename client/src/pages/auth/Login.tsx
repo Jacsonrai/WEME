@@ -14,6 +14,7 @@ const Login = () => {
     LoginRequest(value).then((res: any) => {
       dispatch({ type: "LOGIN" });
       dispatch({ type: "SET_TOKEN", payload: res?.data.token });
+      dispatch({ type: "SET_USER", payload: res?.data.user });
     });
   };
   const defaultValues: loginPayload = {

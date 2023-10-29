@@ -1,32 +1,16 @@
 const User = require("../api/models/user");
+const Handler = require("./socker_util/Handler");
 module.exports = function (io) {
-  io.on("connection", (socket) => {
-    socket.auth = false;
+  io.on("connection", (client) => {
+    const handler = new Handler(client);
+    client.on("registerUser", (userInfo) =>
+      handler.registerUserHandler(userInfo)
+    );
 
-    socket.on("authenticate", async (auth) => {
-      const { email, password } = auth;
-
-      //find user
-
-      const user = await User.findOne({ email }).exec();
-
-      if (user === null) {
-        socket.emit("error", { message: "No email found" });
-      } else if (user.password !== password) {
-        socket.emit("error", { message: "Wrong password" });
-      } else {
-        socket.auth = true;
-        socket.user = user;
-      }
-    });
-
-    // setTimeout(() => {
-    //   // If the authentication failed, disconnect socket
-    //   if (!socket.auth) {
-    //     console.log("Unauthorized: Disconnecting socket ", socket.id);
-    //     return socket.disconnect("unauthorized");
-    //   }
-    //   return socket.emit("authorized");
-    // }, 1000);
+    client.on("createChat", () => handler.createChatHandler());
+    client.on("chat", (message) => handler.chatHandler(message));
+    client.on("disconnect", () => handler.disconnectHandler());
+    client.on("endChat", () => handler.disconnectHandler());
+    console.log("client " + client.id + "connected");
   });
 };

@@ -24,6 +24,12 @@ export const authReducer = (state: AuthState = authState, action: any) => {
         ...state,
         token: action.payload,
       };
+    case "SET_USER":
+      localStorage.setItem("_user", action.payload);
+      return {
+        ...state,
+        user: action.payload,
+      };
     default:
       return state;
   }

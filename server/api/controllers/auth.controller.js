@@ -39,6 +39,7 @@ exports.login = async (req, res) => {
     }
     return res.status(201).json({
       message: "user login successfully",
+      user: registerUser._id,
       token: "khaskdhaskdhaksdhakshdad",
     });
   } catch (error) {
